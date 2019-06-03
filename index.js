@@ -77,4 +77,5 @@ csv()
         }
         console.log('Happyness of each writers: ', detailPublished);
         console.log('Total Happyness Percent % : ', TotalHappyness());
+        console.log('Unhappy percent % : ',100-TotalHappyness());
     })
