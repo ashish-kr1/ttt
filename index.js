@@ -3,7 +3,7 @@ const csv = require('csvtojson');
 csv()
     .fromFile(csvFilePath)
     .then((jsonObj) => {
-        const threshold = 5;        
+        const threshold = 6;
         const publishListArray = new Array(30).fill(0);
         const writers = [];
         const storyOfEachWriter = {};
@@ -36,22 +36,14 @@ csv()
         function Published() {
             let day = 1;
             let currentWriterIndex = 0;
-            while (day <= 30 && writers.length > 0) {
+             while (day <= 30 && writers.length > 0) {
                 const writerId = (writers[currentWriterIndex]) + '';
-                if (storyOfEachWriter[writerId]) {
-                    detailPublished[writerId].no_of_publish += 1;
-                    if (detailPublished[writerId].no_of_publish > threshold && detailPublished[writerId].happyPercent < 100) {
-                        detailPublished[writerId].no_of_publish += 1;
-                    }
+               if (storyOfEachWriter[writerId]) {
+                    detailPublished[writerId].no_of_publish += 1;                    
                     detailPublished[writerId].happyPercent = (detailPublished[writerId].no_of_publish / storyOfEachWriter[writerId].total) * 100;
-                    if (detailPublished[writerId].happyPercent > 100) {
-                        detailPublished[writerId].no_of_publish -= 1;
-                        detailPublished[writerId].happyPercent = (detailPublished[writerId].no_of_publish / storyOfEachWriter[writerId].total) * 100;
-                    }
-                    storyOfEachWriter[writerId].story.pop();
-                    if (publishListArray[day - 1] < 10) {
+                    storyOfEachWriter[writerId].story.pop();             
+                     if (publishListArray[day - 1] < 10) {
                         publishListArray[day - 1] += 1;
-
                     } else {
                         day += 1;
                         publishListArray[day - 1] += 1;
@@ -65,10 +57,7 @@ csv()
                         }
                     } else {
                         currentWriterIndex += 1;
-                        if (detailPublished[writerId].no_of_publish > threshold) {
-                            currentWriterIndex += 1;
-                        }
-                    }
+                    }                    
                 } else {
                     writers.splice(currentWriterIndex, 1);
                     if (currentWriterIndex >= writers.length - 1) currentWriterIndex = 0;
@@ -77,5 +66,5 @@ csv()
         }
         console.log('Happyness of each writers: ', detailPublished);
         console.log('Total Happyness Percent % : ', TotalHappyness());
-        console.log('Unhappy percent % : ',100-TotalHappyness());
+        console.log('Unhappy percent % : ', 100 - TotalHappyness());
     })
