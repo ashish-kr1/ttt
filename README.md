@@ -10,4 +10,7 @@
 * By the we get the number of unique writer i.e 75
 * Limit is 10 story per day. But I tried to give 1 chance to all user.
 * My total  calculated happyness percent is 87%.
-
+* Happyness percent is calculated by number of published tales divided by total tales witten by writer *100.
+  If happyness percent is less than 100% and number of written tales written more than threshold value then it will publish one more tales and it leads to average happyness percent more.
+  And if now may be happyness percent is near or may be more then 100 % according to last condition. If it cross to 100 % then I am cancelling the last published tales and it again less than or equal to 100% always.
+* Unhappy percent is calculated by (100% - happy %).
